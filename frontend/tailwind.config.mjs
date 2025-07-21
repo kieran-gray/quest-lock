@@ -54,8 +54,23 @@ module.exports = {
 					'3': 'hsl(var(--chart-3))',
 					'4': 'hsl(var(--chart-4))',
 					'5': 'hsl(var(--chart-5))'
-				}
-			}
+				},
+				shire: {
+					light: '#fefcf8',       // parchment background
+					dark: '#2d261f',        // deep earthy brown
+					moss: '#b5c79a',        // light mossy green
+					pine: '#587a50',        // rich foliage green
+					bark: '#7b5e42',        // warm tree-bark brown
+					stone: '#e4dbcf',       // stone path beige
+					sun: '#f4c86a',         // warm soft golden highlight
+					rose: '#e9b7aa',        // faded hobbit-door red
+				},
+			},
+			fontFamily: {
+				heading: ['"Almendra SC"', 'serif'],
+				body: ['"Zilla Slab"', 'serif'],
+				ui: ['"Work Sans"', 'sans-serif'],
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")]

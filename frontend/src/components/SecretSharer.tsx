@@ -111,7 +111,7 @@ const SecretSharer: React.FC = () => {
   }
 
   return (
-    <div className="mx-auto max-w-4xl bg-gray-50 p-6">
+    <div className="mx-auto max-w-4xl bg-white p-6">
       <h1 className="mb-6 text-3xl font-bold text-gray-800">
         Shamir Secret Sharing
       </h1>
@@ -121,6 +121,16 @@ const SecretSharer: React.FC = () => {
           <strong>Error:</strong> {error}
         </div>
       )}
+
+      <div className="mb-6 rounded-lg bg-white p-4 shadow">
+        <h3 className="mb-2 font-medium">How it works:</h3>
+        <p className="text-sm text-gray-600">
+          This demo uses Shamir&apos;s Secret Sharing to split a secret into
+          multiple shares. Any {threshold} shares out of the {numShares} total
+          can reconstruct the original secret, but fewer than {threshold} shares
+          reveal no information about the secret.
+        </p>
+      </div>
 
       <div className="grid gap-6 md:grid-cols-2">
         <div className="rounded-lg bg-white p-6 shadow">
@@ -268,16 +278,6 @@ const SecretSharer: React.FC = () => {
             )}
           </div>
         </div>
-      </div>
-
-      <div className="mt-6 rounded-lg bg-white p-4 shadow">
-        <h3 className="mb-2 font-medium">How it works:</h3>
-        <p className="text-sm text-gray-600">
-          This demo uses Shamir's Secret Sharing to split a secret into multiple
-          shares. Any {threshold} shares out of the {numShares} total can
-          reconstruct the original secret, but fewer than {threshold} shares
-          reveal no information about the secret.
-        </p>
       </div>
     </div>
   )
