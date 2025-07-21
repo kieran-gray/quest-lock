@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "src",
     "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
     "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["*"]
     }
   },
   "include": ["src"],
