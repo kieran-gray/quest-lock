@@ -37,7 +37,7 @@ function Home() {
               </div>
               <div className="flex-1">
                 <img
-                  src="/images/split-keys.png"
+                  src="/images/split-keys.webp"
                   alt="Splitting password shares"
                   className="rounded-xl shadow-lg"
                 />
@@ -60,7 +60,7 @@ function Home() {
               </div>
               <div className="flex-1">
                 <img
-                  src="/images/lock-chest.png"
+                  src="/images/lock-chest.webp"
                   alt="Designing quests for password shares"
                   className="rounded-xl shadow-lg"
                 />
@@ -83,7 +83,7 @@ function Home() {
               </div>
               <div className="flex-1">
                 <img
-                  src="/images/confirm-lock.png"
+                  src="/images/confirm-lock.webp"
                   alt="Locking the social media account"
                   className="rounded-xl shadow-lg"
                 />
@@ -106,7 +106,7 @@ function Home() {
               </div>
               <div className="flex-1">
                 <img
-                  src="/images/quest-map.png"
+                  src="/images/quest-map.webp"
                   alt="Completing real-world quests"
                   className="rounded-xl shadow-lg"
                 />
@@ -128,7 +128,7 @@ function Home() {
               </div>
               <div className="flex-1">
                 <img
-                  src="/images/unlock-success.png"
+                  src="/images/unlock-success.webp"
                   alt="Successfully reconstructing password"
                   className="rounded-xl shadow-lg"
                 />
