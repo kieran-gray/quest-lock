@@ -9,8 +9,8 @@ export default function AppShell({ children }: AppShellProps) {
     <>
       <NavbarPage />
       {children}
-      <footer className="py-10 text-center font-ui text-sm text-shire-bark">
-        © 2025 Quest-Lock — For intentional digital living
+      <footer className="bg-shire-light py-10 text-center font-ui text-sm text-shire-bark">
+        © 2025 Quest-Lock - For intentional digital living.
       </footer>
     </>
   )

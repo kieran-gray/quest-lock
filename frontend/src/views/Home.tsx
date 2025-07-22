@@ -3,12 +3,12 @@ import AppShell from '@/components/AppShell'
 function Home() {
   return (
     <AppShell>
-      <div className="bg-white font-body text-shire-dark">
+      <div className="bg-shire-light font-body text-shire-dark">
         {/* Hero Section */}
         <section className="mx-auto max-w-5xl px-6 py-24 text-center">
           <h1 className="mb-4 font-heading text-5xl md:text-6xl">Quest-Lock</h1>
           <p className="mb-8 text-xl text-shire-bark md:text-2xl">
-            Don't just delete your account. Lock it behind a real-world
+            Don&apos;t just delete your account. Lock it behind a real-world
             adventure that you design.
             <br />
             The only key is your commitment.
@@ -138,11 +138,11 @@ function Home() {
         </section>
 
         {/* Call to Action */}
-        <section className="py-20 text-center">
+        <section className="bg-shire-moss py-20 text-center">
           <h2 className="mb-4 font-heading text-4xl">
             Give Your Willpower a Boost
           </h2>
-          <p className="mx-auto mb-6 max-w-xl">
+          <p className="mx-auto mb-6 max-w-xl font-semibold text-shire-dark">
             Quest-Lock makes recovery possible — but only if you really want it.
             No more accidental logins or broken detox promises.
           </p>

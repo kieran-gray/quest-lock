@@ -59,7 +59,7 @@ const NavbarPage = () => {
           </div>
         </div>
       </nav>
-      <div className="h-32 bg-white"></div>
+      <div className="h-32 bg-shire-light"></div>
     </>
   )
 }
