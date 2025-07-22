@@ -125,7 +125,7 @@ const SecretSharer: React.FC = () => {
                 Copy
               </Button>
               <Button
-                className="bg-shire-moss hover:bg-shire-pine"
+                className="bg-shire-pine hover:bg-shire-bark"
                 onClick={generateSecret}
               >
                 Generate Secret
