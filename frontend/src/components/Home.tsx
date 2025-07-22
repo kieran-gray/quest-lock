@@ -8,8 +8,9 @@ function Home() {
         <section className="mx-auto max-w-5xl px-6 py-24 text-center">
           <h1 className="mb-4 font-heading text-5xl md:text-6xl">Quest-Lock</h1>
           <p className="mb-8 text-xl text-shire-bark md:text-2xl">
-            Lock yourself out of social media the whimsical way — with
-            real-world quests and secure password sharing.
+          Don't just delete your account. Lock it behind a real-world adventure that you design.
+          <br />
+          The only key is your commitment.
           </p>
           <button className="rounded-full bg-shire-sun px-6 py-3 font-ui text-lg text-shire-dark shadow-lg transition hover:bg-shire-bark hover:text-shire-light">
             Begin Your Quest
@@ -19,34 +20,12 @@ function Home() {
         {/* Flow Section */}
         <section className="bg-shire-stone py-20">
           <div className="mx-auto max-w-4xl space-y-16 px-6">
-            {/* Step 1: Get Your Quest-Lock Email */}
-            <div className="flex flex-col items-center gap-8 md:flex-row">
-              <div className="flex-1">
-                <h2 className="mb-2 font-heading text-3xl">
-                  1. Get Your Quest-Lock Email
-                </h2>
-                <p>
-                  Start by creating a Quest-Lock account. We&apos;ll instantly
-                  generate a unique, secure email address on our domain for you
-                  to use. You&apos;ll then update your social media account to
-                  use this new email, placing Quest-Lock between you and your
-                  account.
-                </p>
-              </div>
-              <div className="flex-1">
-                <img
-                  src="/images/signup-map.png"
-                  alt="Sign up flow"
-                  className="rounded-xl shadow-lg"
-                />
-              </div>
-            </div>
 
-            {/* Step 2: Generate & Split Your Password */}
+            {/* Step 1: Generate & Split Your Password */}
             <div className="flex flex-col items-center gap-8 md:flex-row-reverse">
               <div className="flex-1">
                 <h2 className="mb-2 font-heading text-3xl">
-                  2. Generate & Split Your Password
+                  1. Generate & Split Your Password
                 </h2>
                 <p>
                   Our app generates a new, highly secure password on your
@@ -65,11 +44,11 @@ function Home() {
               </div>
             </div>
 
-            {/* Step 3: Design Your Quests */}
+            {/* Step 2: Design Your Quests */}
             <div className="flex flex-col items-center gap-8 md:flex-row">
               <div className="flex-1">
                 <h2 className="mb-2 font-heading text-3xl">
-                  3. Design Your Quests
+                  2. Design Your Quests
                 </h2>
                 <p>
                   You choose how to lock the other 5 shares on our server.
@@ -88,11 +67,11 @@ function Home() {
               </div>
             </div>
 
-            {/* Step 4: Lock Your Social Media */}
+            {/* Step 3: Lock Your Social Media */}
             <div className="flex flex-col items-center gap-8 md:flex-row-reverse">
               <div className="flex-1">
                 <h2 className="mb-2 font-heading text-3xl">
-                  4. Lock Your Social Media
+                  3. Lock Your Social Media
                 </h2>
                 <p>
                   With your quests in place, you&apos;ll change your social
@@ -111,11 +90,11 @@ function Home() {
               </div>
             </div>
 
-            {/* Step 5: Embark on a Quest */}
+            {/* Step 4: Embark on a Quest */}
             <div className="flex flex-col items-center gap-8 md:flex-row">
               <div className="flex-1">
                 <h2 className="mb-2 font-heading text-3xl">
-                  5. Embark on a Quest
+                  4. Embark on a Quest
                 </h2>
                 <p>
                   To start your recovery, you must complete the quests you
@@ -134,18 +113,17 @@ function Home() {
               </div>
             </div>
 
-            {/* Step 6: Reconstruct & Regain Access */}
+            {/* Step 5: Reconstruct & Regain Access */}
             <div className="flex flex-col items-center gap-8 md:flex-row-reverse">
               <div className="flex-1">
                 <h2 className="mb-2 font-heading text-3xl">
-                  6. Reconstruct & Regain Access
+                  5. Reconstruct & Regain Access
                 </h2>
                 <p>
                   Once you&apos;ve collected the required number of shares
-                  (e.g., 6 out of 10), the app on your device can reconstruct
-                  the original password. You now have a limited time window to
-                  use this password and regain access to your social media
-                  account.
+                  (e.g., 6 out of 10), you can reconstruct
+                  the original password. You can now use this password 
+                  and regain access to your social media account.
                 </p>
               </div>
               <div className="flex-1">
