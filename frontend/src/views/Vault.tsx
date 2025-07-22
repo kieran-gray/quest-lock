@@ -1,6 +1,6 @@
-import Loading from '@/components/Loading'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import AppShell from '@/components/AppShell'
+import QuestLoader from '@/components/QuestLoader'
 
 export const Vault = () => {
   return (
@@ -13,5 +13,5 @@ export const Vault = () => {
 }
 
 export default withAuthenticationRequired(Vault, {
-  onRedirecting: () => <Loading />
+  onRedirecting: () => <QuestLoader />
 })

@@ -22,7 +22,7 @@ function SecretSharingDemo() {
               <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
                 <div className="mb-4 flex justify-center">
                   <svg
-                    className="text-shire-pine size-12"
+                    className="size-12 text-shire-pine"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 24 24"
@@ -47,7 +47,7 @@ function SecretSharingDemo() {
               <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
                 <div className="mb-4 flex justify-center">
                   <svg
-                    className="text-shire-pine size-12"
+                    className="size-12 text-shire-pine"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 24 24"
@@ -74,7 +74,7 @@ function SecretSharingDemo() {
               <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
                 <div className="mb-4 flex justify-center">
                   <svg
-                    className="text-shire-pine size-12"
+                    className="size-12 text-shire-pine"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 24 24"
@@ -119,7 +119,7 @@ function SecretSharingDemo() {
                   <h3 className="font-heading text-xl text-red-800">
                     A Solemn Responsibility
                   </h3>
-                  <p className="text-md mt-2 text-red-700">
+                  <p className="mt-2 text-red-700">
                     It is extremely important that you{' '}
                     <strong>securely store your 5 local shares.</strong> If you
                     lose them, your password—and access to your account—will be
