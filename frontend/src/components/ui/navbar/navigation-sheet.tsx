@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Menu } from 'lucide-react'
 import logo from './QuestLockHeaderLogo.png'
-import { NavMenu } from './nav-menu'
+import NavMenu from './nav-menu'
 
 export const NavigationSheet = () => {
   return (

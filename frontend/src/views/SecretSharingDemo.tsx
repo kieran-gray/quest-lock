@@ -1,5 +1,5 @@
-import AppShell from './AppShell'
-import SecretSharer from './SecretSharer'
+import AppShell from '@/components/AppShell'
+import SecretSharer from '@/components/SecretSharer'
 
 function SecretSharingDemo() {
   return (

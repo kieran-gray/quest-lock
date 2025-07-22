@@ -1,4 +1,4 @@
-import AppShell from './AppShell'
+import AppShell from '@/components/AppShell'
 
 function Home() {
   return (
@@ -8,9 +8,10 @@ function Home() {
         <section className="mx-auto max-w-5xl px-6 py-24 text-center">
           <h1 className="mb-4 font-heading text-5xl md:text-6xl">Quest-Lock</h1>
           <p className="mb-8 text-xl text-shire-bark md:text-2xl">
-          Don't just delete your account. Lock it behind a real-world adventure that you design.
-          <br />
-          The only key is your commitment.
+            Don't just delete your account. Lock it behind a real-world
+            adventure that you design.
+            <br />
+            The only key is your commitment.
           </p>
           <button className="rounded-full bg-shire-sun px-6 py-3 font-ui text-lg text-shire-dark shadow-lg transition hover:bg-shire-bark hover:text-shire-light">
             Begin Your Quest
@@ -20,7 +21,6 @@ function Home() {
         {/* Flow Section */}
         <section className="bg-shire-stone py-20">
           <div className="mx-auto max-w-4xl space-y-16 px-6">
-
             {/* Step 1: Generate & Split Your Password */}
             <div className="flex flex-col items-center gap-8 md:flex-row-reverse">
               <div className="flex-1">
@@ -121,9 +121,9 @@ function Home() {
                 </h2>
                 <p>
                   Once you&apos;ve collected the required number of shares
-                  (e.g., 6 out of 10), you can reconstruct
-                  the original password. You can now use this password 
-                  and regain access to your social media account.
+                  (e.g., 6 out of 10), you can reconstruct the original
+                  password. You can now use this password and regain access to
+                  your social media account.
                 </p>
               </div>
               <div className="flex-1">
