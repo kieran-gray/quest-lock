@@ -1,6 +1,6 @@
 export const appRoutes = {
   home: '/',
-  secretSharingDemo: '/shamir-secret-sharing',
+  secretSharingDemo: '/how-it-works',
   vault: '/vault',
   notFound: '/*'
 } as const

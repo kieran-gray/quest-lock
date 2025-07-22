@@ -21,7 +21,7 @@ export default function NavMenu(props: NavigationMenuProps) {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
-            <Link to="/shamir-secret-sharing">Secret Sharing Demo</Link>
+            <Link to="/how-it-works">How It Works</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
         {isAuthenticated && (
