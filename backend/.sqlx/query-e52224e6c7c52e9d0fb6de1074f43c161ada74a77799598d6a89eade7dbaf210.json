@@ -1,0 +1,52 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT\n                        id,\n                        lock_id,\n                        share,\n                        quest_type,\n                        status,\n                        data as \"data: serde_json::Value\"\n                    FROM quests\n                    WHERE lock_id = $1\n                    ORDER BY id",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "lock_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "share",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "quest_type",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "status",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "data: serde_json::Value",
+        "type_info": "Jsonb"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "e52224e6c7c52e9d0fb6de1074f43c161ada74a77799598d6a89eade7dbaf210"
+}

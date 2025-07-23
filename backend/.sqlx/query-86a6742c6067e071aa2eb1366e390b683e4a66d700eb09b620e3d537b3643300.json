@@ -1,0 +1,19 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                INSERT INTO quests (\n                    id, lock_id, share, quest_type, status, data\n                ) VALUES (\n                    $1, $2, $3, $4, $5, $6\n                )\n                ON CONFLICT (id) DO UPDATE SET\n                    status = EXCLUDED.status,\n                    updated_at = NOW()\n                ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Text",
+        "Text",
+        "Text",
+        "Jsonb"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "86a6742c6067e071aa2eb1366e390b683e4a66d700eb09b620e3d537b3643300"
+}

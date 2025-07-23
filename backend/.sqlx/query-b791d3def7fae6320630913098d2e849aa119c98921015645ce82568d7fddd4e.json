@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            INSERT INTO locks (\n                id, label, total_shares, threshold\n            ) VALUES (\n                $1, $2, $3, $4\n            )\n            ON CONFLICT (id) DO UPDATE SET\n                label = EXCLUDED.label,\n                total_shares = EXCLUDED.total_shares,\n                threshold = EXCLUDED.threshold,\n                updated_at = NOW()\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Text",
+        "Int2",
+        "Int2"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "b791d3def7fae6320630913098d2e849aa119c98921015645ce82568d7fddd4e"
+}
