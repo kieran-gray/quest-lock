@@ -1,5 +1,6 @@
 CREATE TABLE lock(
     id uuid NOT NULL,
+    user_id TEXT NOT NULL,
     vault_id uuid NOT NULL,
     label TEXT,
     total_shares SMALLINT NOT NULL,

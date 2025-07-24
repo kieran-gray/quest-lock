@@ -1,22 +1,25 @@
 use sqlx::PgPool;
 
+use crate::infrastructure::services::auth_service::AuthService;
+use crate::infrastructure::services::lock_query_service::LockQueryService;
 use crate::infrastructure::{lock_repository::LockRepository, services::lock_service::LockService};
 use crate::setup::app_state::AppState;
 use crate::setup::config::Config;
 
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
-/// Constructs and wires all application services and returns a configured AppState.
 pub fn build_app_state(pool: PgPool, config: Config) -> AppState {
     let lock_repository = LockRepository::create(pool.clone());
 
     let lock_service = LockService::create(lock_repository.clone());
 
-    AppState::new(config, lock_service)
+    let lock_query_service = LockQueryService::create(lock_repository.clone());
+
+    let auth_service = AuthService::create(&config.auth_jwks_url);
+
+    AppState::new(config, lock_service, lock_query_service, auth_service)
 }
 
-/// Setup tracing for the application.
-/// This function initializes the tracing subscriber with a default filter and formatting.
 pub fn setup_tracing() {
     dotenv::dotenv().ok();
 
@@ -37,8 +40,6 @@ pub fn setup_tracing() {
         .init();
 }
 
-/// Shutdown signal handler
-/// This function listens for a shutdown signal (CTRL+C) and logs a message when received.
 pub async fn shutdown_signal() {
     tokio::signal::ctrl_c()
         .await

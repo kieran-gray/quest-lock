@@ -42,11 +42,12 @@ impl LockService {
 impl LockServiceTrait for LockService {
     async fn create_lock(
         &self,
+        user_id: String,
         label: Option<String>,
         total_shares: u8,
         threshold: u8,
     ) -> Result<LockDTO, AppError> {
-        let lock = Lock::create(label, total_shares, threshold, vec![]);
+        let lock = Lock::create(user_id, label, total_shares, threshold, vec![]);
 
         if let Err(err) = self.repo.save(&lock).await {
             tracing::error!("Error creating lock: {err}");

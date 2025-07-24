@@ -16,6 +16,8 @@ pub enum AppError {
     ValidationError(String),
 
     /// Used for authentication-related errors
+    #[error("Unauthorised: {0}")]
+    Unauthorised(String),
     #[error("Wrong credentials")]
     WrongCredentials,
     #[error("Missing credentials")]

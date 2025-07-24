@@ -8,6 +8,7 @@ use async_trait::async_trait;
 pub trait LockServiceTrait: Send + Sync {
     async fn create_lock(
         &self,
+        user_id: String,
         label: Option<String>,
         total_shares: u8,
         threshold: u8,
