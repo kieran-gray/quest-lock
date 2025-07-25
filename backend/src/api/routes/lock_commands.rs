@@ -3,8 +3,7 @@ use axum_auth::AuthBearer;
 use base64::prelude::*;
 
 use crate::{
-    api::schemas::requests::{CreateLockRequest},
-    application::exceptions::AppError,
+    api::schemas::requests::CreateLockRequest, application::exceptions::AppError,
     setup::app_state::AppState,
 };
 
@@ -28,7 +27,12 @@ pub async fn create_lock_handler(
 
     let lock = state
         .lock_service
-        .create_lock(user_id.clone(), payload.label, payload.total_shares, payload.threshold)
+        .create_lock(
+            user_id.clone(),
+            payload.label,
+            payload.total_shares,
+            payload.threshold,
+        )
         .await?;
 
     for quest in payload.quests {
@@ -39,7 +43,10 @@ pub async fn create_lock_handler(
             .await?;
     }
 
-    let lock = state.lock_query_service.get_lock_by_id(user_id, lock.id).await?;
+    let lock = state
+        .lock_query_service
+        .get_lock_by_id(user_id, lock.id)
+        .await?;
 
     Ok(Json(lock))
 }

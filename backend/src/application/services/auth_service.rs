@@ -1,10 +1,7 @@
-use crate::application::{exceptions::AppError};
+use crate::application::exceptions::AppError;
 use async_trait::async_trait;
 
 #[async_trait]
 pub trait AuthServiceTrait: Send + Sync {
-    async fn verify(
-        &self,
-        token: &str,
-    ) -> Result<String, AppError>;
+    async fn verify(&self, token: &str) -> Result<String, AppError>;
 }

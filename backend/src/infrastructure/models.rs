@@ -18,7 +18,13 @@ pub struct LockModel {
 }
 
 impl LockModel {
-    pub fn create(id: Uuid, user_id: String, label: Option<String>, total_shares: i16, threshold: i16) -> Self {
+    pub fn create(
+        id: Uuid,
+        user_id: String,
+        label: Option<String>,
+        total_shares: i16,
+        threshold: i16,
+    ) -> Self {
         Self {
             id,
             user_id,

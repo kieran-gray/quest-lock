@@ -1,6 +1,9 @@
 use std::sync::Arc;
 
-use crate::application::services::{auth_service::AuthServiceTrait, lock_query_service::LockQueryServiceTrait, lock_service::LockServiceTrait};
+use crate::application::services::{
+    auth_service::AuthServiceTrait, lock_query_service::LockQueryServiceTrait,
+    lock_service::LockServiceTrait,
+};
 
 use super::config::Config;
 

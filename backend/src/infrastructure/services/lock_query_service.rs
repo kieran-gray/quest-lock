@@ -10,9 +10,7 @@ use crate::{
         dtos::lock::LockDTO, exceptions::AppError,
         services::lock_query_service::LockQueryServiceTrait,
     },
-    domain::{
-        lock::{repository::LockRepository as LockRepositoryInterface},
-    },
+    domain::lock::repository::LockRepository as LockRepositoryInterface,
 };
 
 pub struct LockQueryService {

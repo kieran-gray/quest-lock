@@ -1,12 +1,12 @@
 use axum::{
-    extract::{Path, State}, response::IntoResponse, routing::get, Json, Router
+    Json, Router,
+    extract::{Path, State},
+    response::IntoResponse,
+    routing::get,
 };
 use axum_auth::AuthBearer;
 
-use crate::{
-    application::exceptions::AppError,
-    setup::app_state::AppState,
-};
+use crate::{application::exceptions::AppError, setup::app_state::AppState};
 
 pub async fn get_lock_by_id_handler(
     State(state): State<AppState>,
@@ -26,10 +26,7 @@ pub async fn get_locks_handler(
     AuthBearer(token): AuthBearer,
 ) -> Result<impl IntoResponse, AppError> {
     let user_id = state.auth_service.verify(&token).await?;
-    let locks = state
-        .lock_query_service
-        .get_locks(user_id)
-        .await?;
+    let locks = state.lock_query_service.get_locks(user_id).await?;
     Ok(Json(locks))
 }
 

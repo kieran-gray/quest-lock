@@ -1,10 +1,13 @@
 use std::time::{Duration, Instant};
 
-use crate::{api::routes::{lock_queries::lock_queries_router, lock_commands::lock_commands_router}, setup::app_state::AppState};
+use crate::{
+    api::routes::{lock_commands::lock_commands_router, lock_queries::lock_queries_router},
+    setup::app_state::AppState,
+};
 
 use super::{exception_handler::handle_error, routes::admin::admin_router};
-use http_body_util::BodyExt;
 use http::header::{AUTHORIZATION, CONTENT_TYPE};
+use http_body_util::BodyExt;
 
 use axum::{
     Router,
@@ -17,9 +20,9 @@ use axum::{
 };
 
 use tower::ServiceBuilder;
+use tower_http::cors::CorsLayer;
 use tower_http::services::ServeDir;
-use tower_http::cors::{CorsLayer};
-use tracing::{info, debug};
+use tracing::{debug, info};
 
 pub fn create_router(state: AppState) -> Router {
     let cors = CorsLayer::new()
@@ -52,7 +55,7 @@ async fn log_request_response(
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
     let method = req.method().clone();
     let uri = req.uri().clone();
-    
+
     info!("--> {} {}", method, uri);
 
     let (req_parts, req_body) = req.into_parts();
@@ -69,7 +72,13 @@ async fn log_request_response(
     let res_bytes = buffer_and_print("response", res_body).await?;
     let res = Response::from_parts(res_parts, Body::from(res_bytes));
 
-    info!("<-- {} {} {} {}", status.as_u16(), method, uri, latency.as_micros());
+    info!(
+        "<-- {} {} {} {}",
+        status.as_u16(),
+        method,
+        uri,
+        latency.as_micros()
+    );
 
     Ok(res)
 }

@@ -2,7 +2,7 @@ use quest_lock_backend::{
     api::router::create_router,
     setup::{
         bootstrap::{build_app_state, setup_tracing, shutdown_signal},
-        config::{setup_database, Config},
+        config::{Config, setup_database},
     },
 };
 use tracing::info;
@@ -10,7 +10,7 @@ use tracing::info;
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     setup_tracing();
-    
+
     let config = Config::from_env()?;
     let pool = setup_database(&config).await?;
     let state = build_app_state(pool, config.clone());
