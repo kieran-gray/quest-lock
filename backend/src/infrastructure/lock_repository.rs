@@ -4,10 +4,26 @@ use std::sync::Arc;
 use crate::domain::{
     lock::entity::Lock, lock::repository::LockRepository as LockRepositoryInterface,
 };
+use crate::infrastructure::exceptions::InfrastructureError;
 use crate::infrastructure::models::{LockModel, LockWithQuests, QuestModel};
 use async_trait::async_trait;
 use sqlx::{Pool, Postgres};
 use uuid::Uuid;
+
+#[derive(sqlx::FromRow)]
+struct FlatLockQuestRow {
+    lock_id: Uuid,
+    lock_user_id: String,
+    lock_label: Option<String>,
+    lock_total_shares: i16,
+    lock_threshold: i16,
+
+    quest_id: Option<Uuid>,
+    quest_share: Option<String>,
+    quest_type: Option<String>,
+    quest_status: Option<String>,
+    quest_data: Option<serde_json::Value>,
+}
 
 #[derive(Debug, Clone)]
 pub struct LockRepository {
@@ -32,6 +48,7 @@ impl LockRepositoryInterface for LockRepository {
         let lock_row = sqlx::query!(
             r#"SELECT 
                 id,
+                user_id,
                 label,
                 total_shares,
                 threshold
@@ -78,6 +95,7 @@ impl LockRepositoryInterface for LockRepository {
 
                 let lock_model = LockModel::create(
                     lock_row.id,
+                    lock_row.user_id,
                     lock_row.label,
                     lock_row.total_shares,
                     lock_row.threshold,
@@ -97,23 +115,97 @@ impl LockRepositoryInterface for LockRepository {
         }
     }
 
+    async fn get_by_user_id(&self, user_id: String) -> Result<Vec<Lock>, sqlx::Error> {
+        let rows = sqlx::query_as!(
+            FlatLockQuestRow,
+            r#"
+            SELECT 
+                l.id as "lock_id!",
+                l.user_id as "lock_user_id!",
+                l.label as "lock_label",
+                l.total_shares as "lock_total_shares!",
+                l.threshold as "lock_threshold!",
+                q.id as "quest_id",
+                q.share as "quest_share",
+                q.quest_type,
+                q.status as "quest_status",
+                q.data as "quest_data"
+            FROM 
+                locks l
+            LEFT JOIN 
+                quests q ON l.id = q.lock_id
+            WHERE 
+                l.user_id = $1
+            ORDER BY 
+                l.id  -- Ordering is important for predictable grouping
+            "#,
+            user_id
+        )
+        .fetch_all(&self.pool)
+        .await?;
+
+        let mut locks_with_quests_map: HashMap<Uuid, LockWithQuests> = HashMap::new();
+
+        for row in rows {
+            let lock_entry =
+                locks_with_quests_map
+                    .entry(row.lock_id)
+                    .or_insert_with(|| LockWithQuests {
+                        lock: LockModel::create(
+                            row.lock_id,
+                            row.lock_user_id.clone(),
+                            row.lock_label.clone(),
+                            row.lock_total_shares,
+                            row.lock_threshold,
+                        ),
+                        quests: Vec::new(),
+                    });
+
+            if let (Some(quest_id), Some(share), Some(quest_type), Some(status), Some(data_json)) = (
+                row.quest_id,
+                row.quest_share,
+                row.quest_type,
+                row.quest_status,
+                row.quest_data,
+            ) {
+                let data_map: HashMap<String, String> = serde_json::from_value(data_json)
+                    .map_err(|e| sqlx::Error::Decode(Box::new(e)))?;
+
+                let quest_model = QuestModel::create(
+                    quest_id,
+                    row.lock_id,
+                    share,
+                    quest_type,
+                    status,
+                    sqlx::types::Json(data_map),
+                );
+                lock_entry.quests.push(quest_model);
+            }
+        }
+
+        let locks_result: Result<Vec<Lock>, InfrastructureError> = locks_with_quests_map
+            .into_values()
+            .map(Lock::try_from)
+            .collect();
+
+        locks_result.map_err(|e| sqlx::Error::Decode(Box::new(e)))
+    }
     async fn save(&self, lock: &Lock) -> Result<bool, sqlx::Error> {
         let mut tx = self.pool.begin().await?;
 
         let lock_res = sqlx::query!(
             r#"
             INSERT INTO locks (
-                id, label, total_shares, threshold
+                id, user_id, label, total_shares, threshold
             ) VALUES (
-                $1, $2, $3, $4
+                $1, $2, $3, $4, $5
             )
             ON CONFLICT (id) DO UPDATE SET
                 label = EXCLUDED.label,
-                total_shares = EXCLUDED.total_shares,
-                threshold = EXCLUDED.threshold,
                 updated_at = NOW()
             "#,
             lock.id,
+            lock.user_id,
             lock.label,
             lock.total_shares as i16,
             lock.threshold as i16

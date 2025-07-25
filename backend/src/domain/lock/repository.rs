@@ -9,6 +9,8 @@ use uuid::Uuid;
 pub trait LockRepository: Send + Sync {
     async fn get_by_id(&self, id: Uuid) -> Result<Option<Lock>, sqlx::Error>;
 
+    async fn get_by_user_id(&self, user_id: String) -> Result<Vec<Lock>, sqlx::Error>;
+
     async fn save(&self, lock: &Lock) -> Result<bool, sqlx::Error>;
 
     async fn delete(&self, lock: &Lock) -> Result<bool, sqlx::Error>;

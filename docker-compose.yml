@@ -4,7 +4,6 @@ services:
     image: '${DOCKER_IMAGE_FRONTEND?Variable not set}:latest'
     build:
       context: ./frontend
-      target: build-stage
       args:
         - NODE_ENV=development
         - VITE_API_URL=${VITE_API_URL}
@@ -14,10 +13,9 @@ services:
       - traefik-public
       - default
     ports:
-      - "5173:5173"
+      - "5173:80"
     volumes:
       - ./frontend:/app
-    command: [ "npm", "run", "dev" ]
 
   backend:
     image: '${DOCKER_IMAGE_BACKEND?Variable not set}:latest'
@@ -36,6 +34,8 @@ services:
       - ./backend/.env
     ports:
       - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://postgres:changeme@db:5432/quest_lock
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8000/api/v1/health" ]
       interval: 30s

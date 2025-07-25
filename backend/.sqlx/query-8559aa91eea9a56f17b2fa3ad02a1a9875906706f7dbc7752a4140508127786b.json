@@ -1,6 +1,6 @@
 {
   "db_name": "PostgreSQL",
-  "query": "SELECT \n                id,\n                label,\n                total_shares,\n                threshold\n            FROM locks\n            WHERE id = $1",
+  "query": "SELECT \n                id,\n                user_id,\n                label,\n                total_shares,\n                threshold\n            FROM locks\n            WHERE id = $1",
   "describe": {
     "columns": [
       {
@@ -10,16 +10,21 @@
       },
       {
         "ordinal": 1,
-        "name": "label",
+        "name": "user_id",
         "type_info": "Text"
       },
       {
         "ordinal": 2,
+        "name": "label",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
         "name": "total_shares",
         "type_info": "Int2"
       },
       {
-        "ordinal": 3,
+        "ordinal": 4,
         "name": "threshold",
         "type_info": "Int2"
       }
@@ -31,10 +36,11 @@
     },
     "nullable": [
       false,
+      false,
       true,
       false,
       false
     ]
   },
-  "hash": "7feccf1f538503009698f6bd901f13af1732f55143e1b0245bc3eceb4408be29"
+  "hash": "8559aa91eea9a56f17b2fa3ad02a1a9875906706f7dbc7752a4140508127786b"
 }

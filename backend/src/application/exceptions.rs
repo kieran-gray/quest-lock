@@ -14,8 +14,12 @@ pub enum AppError {
     InternalError,
     #[error("Validation error: {0}")]
     ValidationError(String),
+    #[error("Invalid Quest Share provided")]
+    InvalidQuestShare,
 
     /// Used for authentication-related errors
+    #[error("Unauthorised: {0}")]
+    Unauthorised(String),
     #[error("Wrong credentials")]
     WrongCredentials,
     #[error("Missing credentials")]

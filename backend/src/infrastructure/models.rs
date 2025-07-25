@@ -11,15 +11,23 @@ use uuid::Uuid;
 #[derive(FromRow, Debug)]
 pub struct LockModel {
     id: Uuid,
+    user_id: String,
     label: Option<String>,
     total_shares: i16,
     threshold: i16,
 }
 
 impl LockModel {
-    pub fn create(id: Uuid, label: Option<String>, total_shares: i16, threshold: i16) -> Self {
+    pub fn create(
+        id: Uuid,
+        user_id: String,
+        label: Option<String>,
+        total_shares: i16,
+        threshold: i16,
+    ) -> Self {
         Self {
             id,
+            user_id,
             label,
             total_shares,
             threshold,
@@ -31,6 +39,7 @@ impl From<Lock> for LockModel {
     fn from(lock: Lock) -> Self {
         Self {
             id: lock.id,
+            user_id: lock.user_id,
             label: lock.label,
             total_shares: lock.total_shares as i16,
             threshold: lock.threshold as i16,
@@ -121,6 +130,7 @@ impl TryFrom<LockWithQuests> for Lock {
 
         Ok(Lock {
             id: data.lock.id,
+            user_id: data.lock.user_id,
             label: data.lock.label,
             total_shares: data.lock.total_shares as u8,
             threshold: data.lock.threshold as u8,
