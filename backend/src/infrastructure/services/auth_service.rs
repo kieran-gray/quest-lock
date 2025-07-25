@@ -24,9 +24,9 @@ impl AuthService {
 
 #[async_trait]
 impl AuthServiceTrait for AuthService {
-    async fn verify(&self, token: &str) -> Result<bool, AppError> {
+    async fn verify(&self, token: &str) -> Result<String, AppError> {
         match self.jwks_verifier.verify::<Map<String, Value>>(token).await {
-            Ok(_) => Ok(true),
+            Ok(res) => Ok(res.claims().sub.clone().unwrap()),
             Err(err) => Err(AppError::Unauthorised(err.to_string())),
         }
     }

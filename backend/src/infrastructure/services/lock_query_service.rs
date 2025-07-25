@@ -1,6 +1,8 @@
+// TODO move to application layer at some point
 use std::sync::Arc;
 
 use async_trait::async_trait;
+use tracing::info;
 use uuid::Uuid;
 
 use crate::{
@@ -33,6 +35,7 @@ impl LockQueryService {
 #[async_trait]
 impl LockQueryServiceTrait for LockQueryService {
     async fn get_lock_by_id(&self, user_id: String, lock_id: String) -> Result<LockDTO, AppError> {
+        info!("Get lock by id - user_id: {user_id}, lock_id: {lock_id}");
         let parsed_lock_id = self._parse_id(&lock_id)?;
 
         let lock = self
@@ -51,6 +54,7 @@ impl LockQueryServiceTrait for LockQueryService {
     }
 
     async fn get_locks(&self, user_id: String) -> Result<Vec<LockDTO>, AppError> {
+        info!("Get locks request - user_id: {user_id}");
         let locks = self
             .repo
             .get_by_user_id(user_id)

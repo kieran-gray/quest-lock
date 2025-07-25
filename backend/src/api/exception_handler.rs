@@ -23,6 +23,7 @@ impl IntoResponse for AppError {
             AppError::TokenCreation => StatusCode::INTERNAL_SERVER_ERROR,
             AppError::UserNotFound => StatusCode::NOT_FOUND,
             AppError::Unauthorised(_) => StatusCode::UNAUTHORIZED,
+            AppError::InvalidQuestShare => StatusCode::BAD_REQUEST,
         };
         let body = axum::Json(ApiResponse::<()> {
             status: status.as_u16(),

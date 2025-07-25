@@ -6,5 +6,5 @@ pub trait AuthServiceTrait: Send + Sync {
     async fn verify(
         &self,
         token: &str,
-    ) -> Result<bool, AppError>;
+    ) -> Result<String, AppError>;
 }

@@ -1,6 +1,6 @@
 use std::time::{Duration, Instant};
 
-use crate::{api::routes::lock_queries::lock_router, setup::app_state::AppState};
+use crate::{api::routes::{lock_queries::lock_queries_router, lock_commands::lock_commands_router}, setup::app_state::AppState};
 
 use super::{exception_handler::handle_error, routes::admin::admin_router};
 use http_body_util::BodyExt;
@@ -36,7 +36,8 @@ pub fn create_router(state: AppState) -> Router {
 
     let app_routes = Router::new()
         .merge(admin_router())
-        .merge(lock_router());
+        .merge(lock_queries_router())
+        .merge(lock_commands_router());
 
     Router::new()
         .nest("/api/v1", app_routes)
