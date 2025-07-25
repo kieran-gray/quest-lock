@@ -6,8 +6,9 @@ import { appRoutes } from './constants.js'
 import Home from '@/views/Home.js'
 import NotFound from '@/views/NotFound.js'
 import SecretSharingDemo from './views/SecretSharingDemo.js'
-import Vault from './views/Vault.js'
+import Vault from '@/views/Vault.js'
 import QuestLoader from './components/QuestLoader.js'
+import CreateLock from './views/CreateLock.js'
 
 const App = () => {
   const { isLoading, error } = useAuth0()
@@ -29,6 +30,7 @@ const App = () => {
             path={appRoutes.secretSharingDemo}
             element={<SecretSharingDemo />}
           />
+          <Route path={appRoutes.createLock} element={<CreateLock />} />
           <Route path={appRoutes.vault} element={<Vault />} />
           <Route path={appRoutes.notFound} element={<NotFound />} />
         </Route>
