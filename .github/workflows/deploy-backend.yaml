@@ -1,0 +1,68 @@
+name: Backend depolyment pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  PROJECT_ID: quest-lock
+  AR_LOCATION: europe-west1
+  REPOSITORY: quest-lock
+  SERVICE: api
+  REGION: eu-west-1
+
+jobs:
+  deploy:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Google Auth
+        id: auth
+        uses: 'google-github-actions/auth@v2'
+        with:
+          token_format: 'access_token'
+          project_id: ${{ env.PROJECT_ID }}
+          service_account: ${{ vars.SERVICE_ACCOUNT }}
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+
+      - name: Docker Auth
+        id: docker-auth
+        uses: 'docker/login-action@v3'
+        with:
+          username: 'oauth2accesstoken'
+          password: '${{ steps.auth.outputs.access_token }}'
+          registry: '${{ env.AR_LOCATION }}-docker.pkg.dev'
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          target: runtime
+          push: true
+          tags: "${{ env.AR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}"
+
+      - name: Deploy to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ env.SERVICE }}
+          region: ${{ env.REGION }}
+          image: ${{ env.AR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}
+          env_vars: |
+           ENVIRONMENT=production
+           DATABASE_MAX_CONNECTIONS=5
+           DATABASE_MIN_CONNECTIONS=1
+           SERVICE_HOST=0.0.0.0
+           SERVICE_PORT=8000
+           BACKEND_CORS_ORIGINS="https://quest-lock.com"
+           AUTH_JWKS_URL="https://quest-lock.uk.auth0.com/.well-known/jwks.json"
+          secrets:  |
+           DATABASE_URL=quest-lock-production-database-url:latest
