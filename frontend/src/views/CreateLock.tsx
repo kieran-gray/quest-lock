@@ -435,8 +435,8 @@ export const CreateLock = () => {
 
   return (
     <AppShell>
-      <div className="min-h-screen bg-shire-light font-body text-shire-dark">
-        <div className="container mx-auto px-6 py-12">
+      <div className="min-h-screen bg-shire-light px-6 py-12 font-body text-shire-dark">
+        <div className="container mx-auto max-w-6xl">
           <div className="mb-8 text-center">
             <h1 className="mb-4 font-heading text-4xl text-shire-dark">
               Forge Your Quest-Lock
@@ -446,7 +446,7 @@ export const CreateLock = () => {
             </p>
           </div>
 
-          <div className="space-y-8 rounded-lg bg-shire-stone p-8 shadow-md">
+          <div className="space-y-8 rounded-xl bg-shire-stone p-8 shadow-md border-2 shadow-lg border-shire-bark/20 bg-shire-stone">
             <div>
               <label
                 htmlFor="lock-label"

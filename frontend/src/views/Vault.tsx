@@ -175,7 +175,7 @@ const Vault = () => {
       <div className="min-h-screen bg-shire-light px-6 py-12 font-body text-shire-dark">
         <div className="container mx-auto max-w-6xl">
           <div className="mb-8 text-center">
-            <h1 className="mb-4 font-heading text-4xl md:text-5xl text-shire-dark">
+            <h1 className="mb-4 font-heading text-4xl text-shire-dark">
               The Vault of Trials
             </h1>
             <p className="text-lg text-shire-bark max-w-2xl mx-auto">
