@@ -11,7 +11,7 @@ env:
   AR_LOCATION: europe-west1
   REPOSITORY: quest-lock
   SERVICE: api
-  REGION: eu-west-1
+  REGION: europe-west1
 
 jobs:
   deploy:
