@@ -6,7 +6,7 @@ use crate::{
 };
 
 use super::{exception_handler::handle_error, routes::admin::admin_router};
-use http::header::{AUTHORIZATION, CONTENT_TYPE};
+use http::header::{AUTHORIZATION, CONTENT_TYPE, ACCEPT, ORIGIN};
 use http_body_util::BodyExt;
 
 use axum::{
@@ -40,7 +40,7 @@ pub fn create_router(state: AppState) -> Router {
     let cors = CorsLayer::new()
         .allow_origin(origins)
         .allow_methods([Method::GET, Method::POST, Method::PATCH, Method::DELETE, Method::OPTIONS])
-        .allow_headers([AUTHORIZATION, CONTENT_TYPE])
+        .allow_headers([AUTHORIZATION, CONTENT_TYPE, ACCEPT, ORIGIN])
         .allow_credentials(true);
 
     let middleware_stack = ServiceBuilder::new()
