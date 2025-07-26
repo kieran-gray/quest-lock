@@ -2,7 +2,7 @@ name: Backend deployment pipeline
 
 on:
   workflow_run:
-    workflows: ["Backend Build Pipeline"]
+    workflows: ["Backend build pipeline"]
     branches:
       - main
     types:

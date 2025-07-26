@@ -50,6 +50,7 @@ export const CreateLock = () => {
   const [expandedQuest, setExpandedQuest] = useState<string | null>(null)
   const { getAccessTokenSilently } = useAuth0()
   const navigate = useNavigate()
+  const apiBaseUrl = import.meta.env.VITE_API_URL
 
   const addQuest = (type: QuestType) => {
     if (quests.length < 5) {
@@ -136,7 +137,7 @@ export const CreateLock = () => {
 
     try {
       const token = await getAccessTokenSilently()
-      const response = await fetch('http://localhost:8000/api/v1/lock/', {
+      const response = await fetch(`${apiBaseUrl}/api/v1/lock/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

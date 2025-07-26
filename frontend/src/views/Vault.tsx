@@ -109,6 +109,7 @@ const Vault = () => {
   const [error, setError] = useState<string | null>(null)
   const [expandedLock, setExpandedLock] = useState<string | null>(null)
   const { getAccessTokenSilently } = useAuth0()
+  const apiBaseUrl = import.meta.env.VITE_API_URL
 
   useEffect(() => {
     async function fetchVaultLocks() {
@@ -116,7 +117,7 @@ const Vault = () => {
         setLoading(true)
         setError(null)
         const token = await getAccessTokenSilently()
-        const res = await fetch('http://localhost:8000/api/v1/lock-query/', {
+        const res = await fetch(`${apiBaseUrl}/api/v1/lock-query/`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

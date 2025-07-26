@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'backend/**'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 env:
@@ -14,7 +17,7 @@ env:
   REGION: europe-west1
 
 jobs:
-  deploy:
+  build:
     permissions:
       contents: 'read'
       id-token: 'write'
@@ -62,3 +65,5 @@ jobs:
           platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
