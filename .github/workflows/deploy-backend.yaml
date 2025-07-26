@@ -60,15 +60,18 @@ jobs:
         with:
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
-          image: ${{ env.AR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ steps.image-tag.outputs.tag }}
+          image: ${{ env.AR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:latest
           flags: |
             --cpu=1
             --memory=1Gi
+            --port=8000
             --concurrency=100
             --max-instances=2
             --min-instances=1
             --execution-environment=gen2
-            --service-account=quest-lock-runner-sa@quest-lock.iam.gserviceaccount.com
+            --service-account=${{ vars.RUNNER_SERVICE_ACCOUNT }}
+            --add-cloudsql-instances=quest-lock:europe-west1:quest-lock-production
+            --vpc-egress=private-ranges-only
           env_vars: |
             ENVIRONMENT=production
             DATABASE_MAX_CONNECTIONS=5
