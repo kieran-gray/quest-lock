@@ -25,8 +25,20 @@ use tower_http::services::ServeDir;
 use tracing::{debug, info};
 
 pub fn create_router(state: AppState) -> Router {
+    let origins: Vec<HeaderValue> = state.config.cors_origins
+        .split(',')
+        .filter_map(|origin| {
+            let trimmed = origin.trim();
+            if trimmed.is_empty() {
+                None
+            } else {
+                trimmed.parse::<HeaderValue>().ok()
+            }
+        })
+        .collect();
+    
     let cors = CorsLayer::new()
-        .allow_origin("http://localhost:5173".parse::<HeaderValue>().unwrap()) // TODO
+        .allow_origin(origins)
         .allow_methods([Method::GET, Method::POST, Method::PATCH, Method::DELETE])
         .allow_headers([AUTHORIZATION, CONTENT_TYPE])
         .allow_credentials(true);

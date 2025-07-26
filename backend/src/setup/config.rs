@@ -14,6 +14,8 @@ pub struct Config {
     pub database_max_connections: u32,
     pub database_min_connections: u32,
 
+    pub cors_origins: String,
+
     pub service_host: String,
     pub service_port: String,
 
@@ -35,6 +37,8 @@ impl Config {
             database_min_connections: env::var("DATABASE_MIN_CONNECTIONS")
                 .map(|s| s.parse::<u32>().unwrap_or(1))
                 .unwrap_or(1),
+
+            cors_origins: env::var("BACKEND_CORS_ORIGINS")?,
 
             service_host: env::var("SERVICE_HOST")?,
             service_port: env::var("SERVICE_PORT")?,
