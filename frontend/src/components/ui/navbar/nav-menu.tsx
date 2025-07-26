@@ -24,6 +24,11 @@ export default function NavMenu(props: NavigationMenuProps) {
             <Link to="/how-it-works">How It Works</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild>
+            <Link to="/lock">Forge Your Lock</Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
         {isAuthenticated && (
           <NavigationMenuItem>
             <NavigationMenuLink asChild>

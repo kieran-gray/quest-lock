@@ -3,9 +3,11 @@ import logo from './QuestLockHeaderLogo.png'
 import NavMenu from './nav-menu'
 import { NavigationSheet } from './navigation-sheet'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useNavigate } from 'react-router-dom'
 
 const NavbarPage = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
+  const navigate = useNavigate()
 
   const logoutWithRedirect = () =>
     logout({
@@ -38,7 +40,7 @@ const NavbarPage = () => {
                 </Button>
                 <Button
                   className="rounded-full bg-shire-sun text-shire-dark hover:bg-shire-bark hover:text-shire-light"
-                  onClick={() => loginWithRedirect()}
+                  onClick={() => navigate('/lock')}
                 >
                   Get Started
                 </Button>
