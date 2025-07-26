@@ -21,4 +21,13 @@ pub trait LockServiceTrait: Send + Sync {
         quest_type: String,
         data: HashMap<String, String>,
     ) -> Result<LockDTO, AppError>;
+
+    async fn create_lock_with_quests(
+        &self,
+        user_id: String,
+        label: Option<String>,
+        total_shares: u8,
+        threshold: u8,
+        quest_data: Vec<(String, String, HashMap<String, String>)>,
+    ) -> Result<LockDTO, AppError>;
 }

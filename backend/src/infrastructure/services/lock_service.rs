@@ -30,6 +30,13 @@ impl LockService {
         }
     }
 
+    fn _parse_quest_type(&self, quest_type: &str) -> Result<QuestType, AppError> {
+        match QuestType::from_str(quest_type) {
+            Ok(quest_type) => Ok(quest_type),
+            Err(err) => Err(AppError::ValidationError(err.to_string())),
+        }
+    }
+
     async fn _get_lock(&self, lock_id: &str) -> Result<Option<Lock>, AppError> {
         let lock_id = self._parse_id(lock_id).unwrap();
         match self.repo.get_by_id(lock_id).await {
@@ -76,6 +83,36 @@ impl LockServiceTrait for LockService {
         lock.quests.push(quest);
         if let Err(err) = self.repo.save(&lock).await {
             tracing::error!("Error planning quest: {err}");
+            return Err(AppError::DatabaseError(err));
+        }
+
+        Ok(LockDTO::from(lock))
+    }
+
+    async fn create_lock_with_quests(
+        &self,
+        user_id: String,
+        label: Option<String>,
+        total_shares: u8,
+        threshold: u8,
+        quest_data: Vec<(String, String, HashMap<String, String>)>,
+    ) -> Result<LockDTO, AppError> {
+        let quests: Vec<Quest> = quest_data
+            .into_iter()
+            .map(|(share, quest_type, data)| {
+                let quest_type = self
+                    ._parse_quest_type(&quest_type)
+                    .expect("Quest type parse failed"); // TODO
+                Quest::create(Uuid::now_v7(), share, quest_type, None, data) // TODO anything other than a placeholder ID
+            })
+            .collect();
+        let mut lock = Lock::create(user_id, label, total_shares, threshold, quests);
+        for quest in &mut lock.quests {
+            quest.lock_id = lock.id.clone();
+        }
+
+        if let Err(err) = self.repo.save(&lock).await {
+            tracing::error!("Error creating lock with quests: {err}");
             return Err(AppError::DatabaseError(err));
         }
 
