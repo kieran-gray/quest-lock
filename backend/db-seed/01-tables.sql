@@ -1,25 +1,25 @@
-CREATE TABLE lock(
+CREATE TABLE locks(
     id uuid NOT NULL,
-    user_id TEXT NOT NULL,
-    vault_id uuid NOT NULL,
-    label TEXT,
-    total_shares SMALLINT NOT NULL,
-    threshold SMALLINT NOT NULL,
+    user_id text NOT NULL,
+    label text,
+    total_shares smallint NOT NULL,
+    threshold smallint NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
     PRIMARY KEY(id)
 );
+CREATE INDEX idx_locks_user_id ON public.locks USING btree (user_id);
+CREATE INDEX idx_locks_lock_id_user_id ON public.locks USING btree (id, user_id);
 
-CREATE TABLE quest(
+CREATE TABLE quests(
     id uuid NOT NULL,
-    lock_id UUID NOT NULL REFERENCES locks(id) ON DELETE CASCADE,
-    share TEXT NOT NULL,
-    quest_type TEXT NOT NULL,
-    status TEXT NOT NULL,
-    data JSONB NOT NULL DEFAULT '{}',
+    lock_id uuid NOT NULL REFERENCES locks(id) ON DELETE CASCADE,
+    share text NOT NULL,
+    quest_type text NOT NULL,
+    status text NOT NULL,
+    "data" jsonb NOT NULL DEFAULT '{}'::jsonb,
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
     PRIMARY KEY(id)
 );
-
-CREATE INDEX idx_quests_lock_id ON quests(lock_id);
+CREATE INDEX idx_quests_lock_id ON public.quests USING btree (lock_id);
