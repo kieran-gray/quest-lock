@@ -21,7 +21,7 @@ services:
     image: '${DOCKER_IMAGE_BACKEND?Variable not set}:latest'
     build:
       context: ./backend
-      target: production
+      target: runtime
     restart: "no"
     networks:
       - traefik-public
@@ -37,8 +37,9 @@ services:
     environment:
       - DATABASE_URL=postgres://postgres:changeme@db:5432/quest_lock
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8000/api/v1/health" ]
-      interval: 30s
+      test: [ "CMD", "./health_check" ]
+      interval: 10s
+      start_period: 2s
       timeout: 5s
       retries: 5
 

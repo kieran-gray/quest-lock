@@ -31,6 +31,8 @@ jobs:
       - name: Run build
         run: npm run build
         working-directory: ./frontend
+        env:
+          VITE_API_URL: ${{ vars.BACKEND_API_URL }}
 
       - name: Publish
         uses: cloudflare/pages-action@v1
